@@ -1,5 +1,5 @@
 const path = require('path');
-const componentPath = path.resolve('./react/cows');
+const componentPath = path.resolve('./components');
 const webpack = require('webpack');
 const environment = process.env.NODE_ENV || 'development';
 const plugins = [];
