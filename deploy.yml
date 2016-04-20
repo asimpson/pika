@@ -1,0 +1,27 @@
+---
+- hosts: chunk
+
+  vars:
+    app_path: apps/pika
+    repo_url: git@github.com:asimpson/pika.git
+
+  tasks:
+    - name: create app dir if it doesn't exist
+      file: path={{ app_path }}
+            state=directory
+
+    - name: update from git
+      git: repo={{ repo_url }} 
+           dest={{ app_path }} 
+           force=true
+           depth=1
+
+    - name: install deps
+      shell: npm install
+      args:
+        chdir: "{{ app_path }}"
+
+    - name: build assets
+      shell: npm run start:prod
+      args:
+        chdir: "{{ app_path }}"
