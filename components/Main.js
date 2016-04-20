@@ -1,4 +1,3 @@
-require('es6-promise').polyfill();
 import React, { Component } from 'react';
 import { render } from "react-dom";
 import fetch from "isomorphic-fetch";
@@ -11,6 +10,9 @@ export default class Main extends Component {
       nextPage: '',
       prevPage: ''
     }
+    this.fetchNewPokemon = this.fetchNewPokemon.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
   }
 
   componentDidMount() {
@@ -24,8 +26,34 @@ export default class Main extends Component {
     });
   }
 
-  getThumb(link) {
-    // http://pokeapi.co/media/sprites/pokemon/10.png
+  fetchNewPokemon(url) {
+    fetch(url).then((response) => {
+      return response.json();
+    }).then((data) => {
+      this.setState({
+        currentPokemon: data.results,
+        nextPage: data.next,
+        prevPage: data.previous
+      });
+    });
+  }
+
+  next() {
+    this.fetchNewPokemon(this.state.nextPage);
+  }
+
+  prev() {
+    this.fetchNewPokemon(this.state.prevPage);
+  }
+
+  generateNextButton() {
+    return ( <button onClick={this.next} className="paginate-next 
+      paginate">▶</button> );
+  }
+
+  generatePrevButton() {
+    return ( <button onClick={this.prev} className="paginate-prev 
+      paginate">◀</button> );
   }
 
   generatePokeList(list) {
@@ -44,9 +72,13 @@ export default class Main extends Component {
 
   render() {
     return (
-      <ul className="card-list">
-        {this.generatePokeList(this.state.currentPokemon)}
-      </ul>
+      <span className="main-grid">
+        {this.generatePrevButton()}
+        <ul className="card-list">
+          {this.generatePokeList(this.state.currentPokemon)}
+        </ul>
+        {this.generateNextButton()}
+      </span>
     );
   }
 }

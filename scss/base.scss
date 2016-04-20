@@ -1,4 +1,5 @@
 @import "colors";
+@import "variables";
 
 body {
   margin: 0;
@@ -27,22 +28,70 @@ img {
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
-  margin: 0 auto;
-  overflow: scroll;
+  justify-content: center;
+  padding: 0;
+  height: 91vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+
+  @media(min-width: $bp) {
+    height: auto;
+  }
 }
 
 .card {
-  width: 25%;
   background-color: lighten($gray, 5%);
   margin: .5em;
   padding: 1em;
+  width: 100%;
   text-align: center;
   transition: 0.2s ease-in-out;
 
+  @media(min-width: $bp) {
+    width: 25%;
+  }
+
   &:hover {
-    background-color: lighten(#ffcd05, 5%);
+    background-color: lighten($yellow, 5%);
     transform: scale(1.1, 1.1);
+  }
+}
+
+.paginate {
+  colors: $red;
+  display: block;
+  cursor: pointer;
+  background-color: $gray;
+  border: none;
+  border-radius: 0;
+  color: $yellow;
+  font-size: 2em;
+  position: fixed;
+  width: 50%;
+  bottom: 0;
+  padding: 1em 0;
+  z-index: 100;
+
+  @media(min-width: $bp) {
+    position: static;
+    padding: 0;
+    width: 100px;
+  }
+}
+
+.paginate-next {
+  right: 0;
+}
+
+.paginate-prev {
+  left: 0;
+}
+
+.main-grid {
+  @media(min-width: $bp) {
+    display: flex;
+    width: 100%;
   }
 }
