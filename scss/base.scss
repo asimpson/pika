@@ -1,0 +1,48 @@
+@import "colors";
+
+body {
+  margin: 0;
+  font-family: 'Avenir', sans-serif;
+  background-color: $gray;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+h2 {
+  color: $red;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card {
+  width: 25%;
+  background-color: lighten($gray, 5%);
+  margin: .5em;
+  padding: 1em;
+  text-align: center;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lighten(#ffcd05, 5%);
+    transform: scale(1.1, 1.1);
+  }
+}
