@@ -6,6 +6,7 @@
   "scripts": {
     "start": "echo 'to start dev use start:dev'",
     "start:dev": "parallelshell 'webpack --watch' 'node ./watch.js' 'npm run server'",
+    "start:prod": "NODE_ENV=production webpack -p && npm run copy && npm run sass",
     "prestart:dev": "webpack && npm run copy && npm run sass",
     "server": "http-server ./dist -c-1",
     "copy": "ncp public/ dist/ --stopOnErr",

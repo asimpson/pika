@@ -1,9 +1,18 @@
 const path = require('path');
 const componentPath = path.resolve('./react/cows');
 const webpack = require('webpack');
+const environment = process.env.NODE_ENV || 'development';
+const plugins = [];
+
+/* Ensure we use the approriate version of React.
+ * Reference: http://facebook.github.io/react/downloads.html#npm
+ */
+plugins.push(new webpack.EnvironmentPlugin(["NODE_ENV"]));
+console.log('building for', environment);
 
 module.exports = {
   cache: false,
+  plugins: plugins,
   context: path.join(__dirname),
   entry: {
     'app': './components/Main.js'
