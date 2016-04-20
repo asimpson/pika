@@ -16,11 +16,6 @@
            force=true
            depth=1
 
-    - name: install deps
-      shell: npm install
-      args:
-        chdir: "{{ app_path }}"
-
     - name: build assets
       shell: npm run start:prod
       args:
