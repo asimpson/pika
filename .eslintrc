@@ -1,0 +1,27 @@
+{
+
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    },
+
+  // I want to use babel-eslint for parsing!
+    "parser": "babel-eslint",
+    "env": {
+        // I write for browser
+        "browser": true,
+        // in CommonJS
+        "node": true
+    },
+    "rules": {
+        "semi": [2, "always"],
+        "eqeqeq": [2, "smart"],
+        "no-debugger": 2,
+        "no-cond-assign": [2, "always"],
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2
+    },
+    "plugins": [
+        "react"
+    ]
+}
