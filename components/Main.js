@@ -10,6 +10,7 @@ export default class Main extends Component {
     this.state = {
       currentPokemon: [],
       nextPage: '',
+      localStorageKey: 'gemCityPikaFavorites',
       prevPage: ''
     };
     this.fetchNewPokemon = this.fetchNewPokemon.bind(this);
@@ -18,8 +19,8 @@ export default class Main extends Component {
   }
 
   setupLocalStorage() {
-    if (!store.get('favorites')) {
-      store.set('favorites', []);
+    if (!store.get(this.state.localStorageKey)) {
+      store.set(this.state.localStorageKey, []);
     }
   }
 
@@ -70,7 +71,8 @@ export default class Main extends Component {
       const splitUrl = x.url.split('/');
       const imgString = `http://pokeapi.co/media/sprites/pokemon/${splitUrl[splitUrl.length - 2]}.png`;
 
-      return <PokemonWrapper key={i} imgString={imgString} name={x.name} />;
+      return <PokemonWrapper key={i} imgString={imgString} name={x.name}
+        store={this.state.localStorageKey}/>;
     });
   }
 

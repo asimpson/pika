@@ -13,29 +13,33 @@ export default class PokemonWrapper extends Component {
   }
   
   componentDidMount() {
-    this.generateFavoriteButton();
+    this.generateFavoriteButton(this.props.name);
   }
   
-  checkStore() {
-    return store.get('favorites').filter(x => x === this.props.name );
+  componentWillReceiveProps(newProps) {
+    this.generateFavoriteButton(newProps.name);
   }
-  
-  favorite(ele) {
+
+  checkStore(name) {
+      return store.get(this.props.store).filter(x => x === name);
+  }
+
+  favorite() {
     let favorites;
 
-    if (this.checkStore().length) {
-      favorites = store.get('favorites').filter(x => x !== this.props.name );
+    if (this.checkStore(this.props.name).length) {
+      favorites = store.get(this.props.store).filter(x => x !== this.props.name );
     } else {
-      favorites = store.get('favorites');
+      favorites = store.get(this.props.store);
       favorites.push(this.props.name);
     }
 
-    store.set('favorites', favorites);
-    this.generateFavoriteButton();
+    store.set(this.props.store, favorites);
+    this.generateFavoriteButton(this.props.name);
   }
   
-  generateFavoriteButton() {
-    if (this.checkStore().length) {
+  generateFavoriteButton(name) {
+    if (this.checkStore(name).length) {
       this.setState({
         favoriteButton: <button className="primary-button"
           onClick={this.favorite}>★</button>
