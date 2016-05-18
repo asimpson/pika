@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { render } from "react-dom";
 import fetch from "isomorphic-fetch";
+import PokemonWrapper from "./PokemonWrapper";
+import store from 'store';
 
 export default class Main extends Component {
   constructor(props) {
@@ -9,13 +11,20 @@ export default class Main extends Component {
       currentPokemon: [],
       nextPage: '',
       prevPage: ''
-    }
+    };
     this.fetchNewPokemon = this.fetchNewPokemon.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
   }
 
+  setupLocalStorage() {
+    if (!store.get('favorites')) {
+      store.set('favorites', []);
+    }
+  }
+
   componentDidMount() {
+    this.setupLocalStorage();
     fetch('http://pokeapi.co/api/v2/pokemon').then((response) => {
       return response.json();
     }).then((data) => {
@@ -61,12 +70,7 @@ export default class Main extends Component {
       const splitUrl = x.url.split('/');
       const imgString = `http://pokeapi.co/media/sprites/pokemon/${splitUrl[splitUrl.length - 2]}.png`;
 
-      return (
-        <li className="card" key={i}>
-          <img alt="" src={imgString}/>
-          <h2>{x.name}</h2>
-        </li>
-      );
+      return <PokemonWrapper key={i} imgString={imgString} name={x.name} />;
     });
   }
 
