@@ -95,3 +95,12 @@ img {
     width: 100%;
   }
 }
+
+.primary-button {
+  border: none;
+  background: none;
+  border-radius: none;
+  color: $blue;
+  font-size: 1em;
+  cursor: pointer;
+}

@@ -37,11 +37,13 @@ export default class PokemonWrapper extends Component {
   generateFavoriteButton() {
     if (this.checkStore().length) {
       this.setState({
-        favoriteButton: <button onClick={this.favorite}>☆ Unfavorite</button>
+        favoriteButton: <button className="primary-button"
+          onClick={this.favorite}>★</button>
       });
     } else {
       this.setState({
-        favoriteButton: <button onClick={this.favorite}>★ Favorite</button>
+        favoriteButton: <button className="primary-button"
+          onClick={this.favorite}>☆</button>
       });
     }
   }
